@@ -1,0 +1,15 @@
+﻿<Application
+    x:Class="_4charp.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:_4charp"
+    xmlns:localData="using:_4charp.Data">
+
+    <Application.Resources>
+
+        <!-- Application-specific resources -->
+
+        <x:String x:Key="AppName">4charp</x:String>
+
+    </Application.Resources>
+</Application>
