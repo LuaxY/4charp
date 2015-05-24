@@ -139,7 +139,7 @@ namespace _4charp.Data
 
                 foreach (string x in blacklist)
                 {
-                    if (x.Contains(boardObject["board"].GetString()))
+                    if (x == boardObject["board"].GetString())
                     {
                         isBlacklisted = true;
                     }

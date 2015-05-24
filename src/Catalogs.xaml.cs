@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI;
 
 namespace _4charp
 {
@@ -40,6 +41,11 @@ namespace _4charp
 
         private async void navigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
+            Random rand = new Random();
+            Color backColor = Color.FromArgb(255, (byte)rand.Next(255), (byte)rand.Next(255), (byte)rand.Next(255));
+            Brush brush = new SolidColorBrush(backColor);
+            this.back.Background = brush;
+
             var _4chanDataCatalog = await _4chanDataSource.GetCatalogdAsync((_4chanDataBoard)e.NavigationParameter);
             this.DefaultViewModel["Catalog"] = _4chanDataCatalog;
             this.DefaultViewModel["Board"] = (_4chanDataBoard)e.NavigationParameter;

@@ -22,7 +22,8 @@
             d:Source="{Binding [0].threads[0], Source={d:DesignData Source=/DataModel/a_catalog.json, Type=data:_4chanDataSource}}"/>
     </Page.Resources>
 
-    <Grid Background="#056903">
+    <Grid x:Name="back"
+          Background="#056903">
         <Grid.ChildrenTransitions>
             <TransitionCollection>
                 <EntranceThemeTransition/>
