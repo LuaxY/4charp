@@ -21,7 +21,7 @@ namespace _4charp
     /// <summary>
     /// A page that displays a grouped collection of items.
     /// </summary>
-    public sealed partial class GroupedItemsPage : Page
+    public sealed partial class Boards : Page
     {
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
@@ -43,7 +43,7 @@ namespace _4charp
             get { return this.defaultViewModel; }
         }
 
-        public GroupedItemsPage()
+        public Boards()
         {
             this.InitializeComponent();
             this.navigationHelper = new NavigationHelper(this);
@@ -64,7 +64,7 @@ namespace _4charp
         private async void navigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
             var _4chanDataBoard = await _4chanDataSource.GetBoardAsync();
-            this.DefaultViewModel["Groups"] = _4chanDataBoard;
+            this.DefaultViewModel["Boards"] = _4chanDataBoard;
         }
 
         /// <summary>
@@ -77,8 +77,8 @@ namespace _4charp
         {
             // Navigate to the appropriate destination page, configuring the new page
             // by passing required information as a navigation parameter
-            var itemId = (_4chanDataBoard)e.ClickedItem;
-            this.Frame.Navigate(typeof(ItemDetailPage), itemId);
+            var item = (_4chanDataBoard)e.ClickedItem;
+            this.Frame.Navigate(typeof(Catalogs), item);
         }
 
         #region NavigationHelper registration

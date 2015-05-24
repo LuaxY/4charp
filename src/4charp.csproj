@@ -108,10 +108,13 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DataModel\4chanDataSource.cs" />
-    <Compile Include="GroupedItemsPage.xaml.cs">
-      <DependentUpon>GroupedItemsPage.xaml</DependentUpon>
+    <Compile Include="Boards.xaml.cs">
+      <DependentUpon>Boards.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Catalogs.xaml.cs">
+      <DependentUpon>Catalogs.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\4chanDataSource.cs" />
     <Compile Include="GroupDetailPage.xaml.cs">
       <DependentUpon>GroupDetailPage.xaml</DependentUpon>
     </Compile>
@@ -131,8 +134,70 @@
     </AppxManifest>
     <None Include="Common\ReadMe.txt" />
     <None Include="4charp_TemporaryKey.pfx" />
+    <Content Include="Assets\boards\3.png" />
+    <Content Include="Assets\boards\a.png" />
+    <Content Include="Assets\boards\adv.png" />
+    <Content Include="Assets\boards\an.png" />
+    <Content Include="Assets\boards\asp.png" />
+    <Content Include="Assets\boards\b.png" />
+    <Content Include="Assets\boards\biz.png" />
+    <Content Include="Assets\boards\c.png" />
+    <Content Include="Assets\boards\cgl.png" />
+    <Content Include="Assets\boards\ck.png" />
+    <Content Include="Assets\boards\cm.png" />
+    <Content Include="Assets\boards\co.png" />
+    <Content Include="Assets\boards\d.png" />
+    <Content Include="Assets\boards\diy.png" />
+    <Content Include="Assets\boards\e.png" />
+    <Content Include="Assets\boards\fa.png" />
+    <Content Include="Assets\boards\fit.png" />
+    <Content Include="Assets\boards\g.png" />
+    <Content Include="Assets\boards\gd.png" />
+    <Content Include="Assets\boards\gif.png" />
+    <Content Include="Assets\boards\h.png" />
+    <Content Include="Assets\boards\hc.png" />
+    <Content Include="Assets\boards\hm.png" />
+    <Content Include="Assets\boards\hr.png" />
+    <Content Include="Assets\boards\i.png" />
+    <Content Include="Assets\boards\ic.png" />
+    <Content Include="Assets\boards\int.png" />
+    <Content Include="Assets\boards\jp.png" />
+    <Content Include="Assets\boards\k.png" />
+    <Content Include="Assets\boards\lgbt.png" />
+    <Content Include="Assets\boards\lit.png" />
+    <Content Include="Assets\boards\m.png" />
+    <Content Include="Assets\boards\mlp.png" />
+    <Content Include="Assets\boards\mu.png" />
+    <Content Include="Assets\boards\n.png" />
+    <Content Include="Assets\boards\o.png" />
+    <Content Include="Assets\boards\out.png" />
+    <Content Include="Assets\boards\p.png" />
+    <Content Include="Assets\boards\po.png" />
+    <Content Include="Assets\boards\pol.png" />
+    <Content Include="Assets\boards\qa.png" />
+    <Content Include="Assets\boards\r.png" />
+    <Content Include="Assets\boards\r9k.png" />
+    <Content Include="Assets\boards\s.png" />
+    <Content Include="Assets\boards\s4s.png" />
+    <Content Include="Assets\boards\sci.png" />
+    <Content Include="Assets\boards\soc.png" />
+    <Content Include="Assets\boards\sp.png" />
+    <Content Include="Assets\boards\t.png" />
+    <Content Include="Assets\boards\tg.png" />
+    <Content Include="Assets\boards\toy.png" />
+    <Content Include="Assets\boards\trv.png" />
+    <Content Include="Assets\boards\tv.png" />
+    <Content Include="Assets\boards\u.png" />
+    <Content Include="Assets\boards\v.png" />
+    <Content Include="Assets\boards\vg.png" />
+    <Content Include="Assets\boards\vp.png" />
+    <Content Include="Assets\boards\vr.png" />
+    <Content Include="Assets\boards\w.png" />
+    <Content Include="Assets\boards\wg.png" />
+    <Content Include="Assets\boards\wsg.png" />
+    <Content Include="Assets\boards\x.png" />
+    <Content Include="Assets\boards\y.png" />
     <Content Include="DataModel\SampleData.json" />
-    <Content Include="DataModel\boards.json" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Logo.scale-100.png" />
@@ -148,9 +213,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="GroupedItemsPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Boards.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Catalogs.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GroupDetailPage.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -21,7 +21,7 @@ namespace _4charp
     /// <summary>
     /// A page that displays a grouped collection of items.
     /// </summary>
-    public sealed partial class GroupedItemsPage : Page
+    public sealed partial class Catalogs : Page
     {
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
@@ -43,7 +43,7 @@ namespace _4charp
             get { return this.defaultViewModel; }
         }
 
-        public GroupedItemsPage()
+        public Catalogs()
         {
             this.InitializeComponent();
             this.navigationHelper = new NavigationHelper(this);
@@ -63,8 +63,9 @@ namespace _4charp
         /// session.  The state will be null the first time a page is visited.</param>
         private async void navigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
-            var _4chanDataBoard = await _4chanDataSource.GetBoardAsync();
-            this.DefaultViewModel["Groups"] = _4chanDataBoard;
+            var _4chanDataCatalog = await _4chanDataSource.GetCatalogdAsync((_4chanDataBoard)e.NavigationParameter);
+            this.DefaultViewModel["Catalog"] = _4chanDataCatalog;
+            this.DefaultViewModel["Board"] = (_4chanDataBoard)e.NavigationParameter;
         }
 
         /// <summary>
