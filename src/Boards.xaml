@@ -13,10 +13,7 @@
 
     <Page.Resources>
         <x:String x:Key="ChevronGlyph">&#xE26B;</x:String>
-        <!--
-            Collection of grouped items displayed by this page, bound to a subset
-            of the complete item list because items in groups cannot be virtualized
-        -->
+ 
         <CollectionViewSource
             x:Name="BoardsSource"
             Source="{Binding Boards}"
@@ -25,11 +22,6 @@
             d:Source="{Binding Boards, Source={d:DesignData Source=/DataModel/boards.json, Type=data:_4chanDataSource}}"/>
     </Page.Resources>
 
-    <!--
-        This grid acts as a root panel for the page that defines two rows:
-        * Row 0 contains the back button and page title
-        * Row 1 contains the rest of the page layout
-    -->
     <Grid Background="#056903">
         <Grid.ChildrenTransitions>
             <TransitionCollection>
@@ -41,7 +33,6 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Horizontal scrolling grid -->
         <GridView
             x:Name="itemGridView"
             AutomationProperties.AutomationId="ItemGridView"
@@ -72,7 +63,6 @@
             </GridView.ItemsPanel>
         </GridView>
 
-        <!-- Back button and page title -->
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="120"/>
