@@ -68,7 +68,7 @@ namespace _4charp
             // TODO: Create an appropriate data model for your problem domain to replace the sample data
             var group = await SampleDataSource.GetGroupAsync((String)e.NavigationParameter);
             this.DefaultViewModel["Group"] = group;
-            this.DefaultViewModel["Items"] = group.Items;
+            //this.DefaultViewModel["Items"] = group.Items;
         }
 
         /// <summary>

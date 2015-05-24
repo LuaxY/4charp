@@ -22,7 +22,7 @@
             Source="{Binding Groups}"
             IsSourceGrouped="true"
             ItemsPath="Items"
-            d:Source="{Binding Groups, Source={d:DesignData Source=/DataModel/SampleData.json, Type=data:SampleDataSource}}"/>
+            d:Source="{Binding Groups, Source={d:DesignData Source=/DataModel/boards.json, Type=data:_4chanDataSource}}"/>
     </Page.Resources>
 
     <!--

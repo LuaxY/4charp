@@ -108,7 +108,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DataModel\BoardSource.cs" />
+    <Compile Include="DataModel\4chanDataSource.cs" />
     <Compile Include="GroupedItemsPage.xaml.cs">
       <DependentUpon>GroupedItemsPage.xaml</DependentUpon>
     </Compile>
@@ -132,6 +132,7 @@
     <None Include="Common\ReadMe.txt" />
     <None Include="4charp_TemporaryKey.pfx" />
     <Content Include="DataModel\SampleData.json" />
+    <Content Include="DataModel\boards.json" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Logo.scale-100.png" />

@@ -63,9 +63,8 @@ namespace _4charp
         /// session.  The state will be null the first time a page is visited.</param>
         private async void navigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
-            // TODO: Create an appropriate data model for your problem domain to replace the sample data
-            var sampleDataGroups = await SampleDataSource.GetGroupsAsync();
-            this.DefaultViewModel["Groups"] = sampleDataGroups;
+            var _4chanDataBoard = await _4chanDataSource.GetBoardAsync();
+            this.DefaultViewModel["Groups"] = _4chanDataBoard;
         }
 
         /// <summary>
@@ -80,7 +79,7 @@ namespace _4charp
 
             // Navigate to the appropriate destination page, configuring the new page
             // by passing required information as a navigation parameter
-            this.Frame.Navigate(typeof(GroupDetailPage), ((SampleDataGroup)group).UniqueId);
+            this.Frame.Navigate(typeof(GroupDetailPage), ((FakeGroup)group).Title);
         }
 
         /// <summary>
@@ -93,7 +92,7 @@ namespace _4charp
         {
             // Navigate to the appropriate destination page, configuring the new page
             // by passing required information as a navigation parameter
-            var itemId = ((SampleDataItem)e.ClickedItem).UniqueId;
+            var itemId = ((_4chanDataBoard)e.ClickedItem).Board;
             this.Frame.Navigate(typeof(ItemDetailPage), itemId);
         }
 
