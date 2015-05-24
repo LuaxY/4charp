@@ -82,9 +82,24 @@ namespace _4charp.Data
 
             FakeGroup group = new FakeGroup();
 
+            string[] blacklist = { "b", "d", "e", "gif", "h", "hc", "hm", "k", "lgbt", "mlp", "pol", "r", "r9k", "s", "s4s", "t", "u", "y", "soc", "hr" };
+
             foreach (JsonValue boardValue in jsonArray)
             {
                 JsonObject boardObject = boardValue.GetObject();
+                bool isBlacklisted = false;
+
+                foreach (string x in blacklist)
+                {
+                    if (x.Contains(boardObject["board"].GetString()))
+                    {
+                        isBlacklisted = true;
+                    }
+                }
+
+                if (isBlacklisted)
+                    continue;
+
                 _4chanDataBoard board = new _4chanDataBoard(boardObject["board"].GetString(),
                                                             boardObject["title"].GetString());
 
