@@ -18,7 +18,7 @@ namespace _4charp.Data
             this.Id = id;
             this.Date = date;
             this.Author = author;
-            this.Desc = desc;
+            this.Desc = desc.Replace("&#039;", "'");
             this.Ext = ext;
             this.Board = board;
             string url = "http://i.4cdn.org/" + this.Board + "/" + this.Id.ToString() + this.Ext;
@@ -118,14 +118,19 @@ namespace _4charp.Data
             if (this._boards.Count != 0)
                 return;
 
-            Uri dataUri = new Uri("http://a.4cdn.org/boards.json");
+            /*Uri dataUri = new Uri("http://a.4cdn.org/boards.json");
             HttpClient _client = new HttpClient();
-            var result = await _client.GetStringAsync(dataUri);
+            var result = await _client.GetStringAsync(dataUri);*/
+
+            Uri dataUri = new Uri("ms-appx:///DataModel/boards.json");
+            StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(dataUri);
+            string result = await FileIO.ReadTextAsync(file);
+
             JsonObject jsonObject = JsonObject.Parse(result);
             JsonArray jsonArray = jsonObject["boards"].GetArray();
             BoardsGroup group = new BoardsGroup();
 
-            string[] blacklist = { "b", "d", "e", "gif", "h", "hc", "hm", "k", "lgbt", "mlp", "pol", "r", "r9k", "s", "s4s", "t", "u", "y", "soc", "hr", "flash"};
+            string[] blacklist = { "b", "d", "e", "gif", "h", "hc", "hm", "k", "lgbt", "mlp", "pol", "r", "r9k", "s", "s4s", "t", "u", "y", "soc", "hr", "flash" };
 
             foreach (JsonValue boardValue in jsonArray)
             {
@@ -136,7 +141,7 @@ namespace _4charp.Data
                 {
                     if (x.Contains(boardObject["board"].GetString()))
                     {
-                        isBlacklisted = false;
+                        isBlacklisted = true;
                     }
                 }
 
@@ -164,27 +169,40 @@ namespace _4charp.Data
         {
             if (board.Items.Count != 0)
                 return;
-
-            Uri dataUri = new Uri("http://a.4cdn.org/"+board.Board+"/catalog.json");
+            
+            Uri dataUri = new Uri("http://a.4cdn.org/" + board.Board + "/catalog.json");
             HttpClient _client = new HttpClient();
             var result = await _client.GetStringAsync(dataUri);
             JsonArray pages = JsonArray.Parse(result);
-            JsonObject page1 = pages[0].GetObject();
-            JsonArray threads = page1["threads"].GetArray();
             CatalogsGroup group = new CatalogsGroup();
 
-            foreach (JsonValue threadValue in threads)
+            foreach (JsonValue pageValue in pages)
             {
-                JsonObject threadObject = threadValue.GetObject();
+                JsonObject page = pageValue.GetObject();
+                JsonArray threads = page["threads"].GetArray();
 
-                _4chanDataCatalog catalog = new _4chanDataCatalog(threadObject["tim"].GetNumber(),
-                                                                  threadObject["now"].GetString(),
-                                                                  threadObject["name"].GetString(),
-                                                                  threadObject["com"].GetString(),
-                                                                  threadObject["ext"].GetString(),
-                                                                  board.Board);
+                foreach (JsonValue threadValue in threads)
+                {
+                    JsonObject threadObject = threadValue.GetObject();
 
-                group.Items.Add(catalog);
+                    if (threadObject.ContainsKey("tim") &&
+                        threadObject.ContainsKey("now") &&
+                        threadObject.ContainsKey("name") &&
+                        threadObject.ContainsKey("com") &&
+                        threadObject.ContainsKey("ext"))
+                    {
+                        _4chanDataCatalog catalog = new _4chanDataCatalog(threadObject["tim"].GetNumber(),
+                                                                          threadObject["now"].GetString(),
+                                                                          threadObject["name"].GetString(),
+                                                                          threadObject["com"].GetString(),
+                                                                          threadObject["ext"].GetString(),
+                                                                          board.Board);
+
+                        group.Items.Add(catalog);
+                    }
+
+                    
+                }
             }
 
             board.Items.Add(group);
