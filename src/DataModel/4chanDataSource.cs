@@ -130,7 +130,7 @@ namespace _4charp.Data
             JsonArray jsonArray = jsonObject["boards"].GetArray();
             BoardsGroup group = new BoardsGroup();
 
-            string[] blacklist = { "b", "d", "e", "gif", "h", "hc", "hm", "k", "lgbt", "mlp", "pol", "r", "r9k", "s", "s4s", "t", "u", "y", "soc", "hr", "flash" };
+            string[] blacklist = { "b", "d", "e", "gif", "h", "hc", "hm", "k", "lgbt", "mlp", "pol", "r", "r9k", "s", "s4s", "t", "u", "y", "soc", "hr", "f" };
 
             foreach (JsonValue boardValue in jsonArray)
             {

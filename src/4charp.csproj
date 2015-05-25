@@ -134,6 +134,9 @@
     </AppxManifest>
     <None Include="Common\ReadMe.txt" />
     <None Include="4charp_TemporaryKey.pfx" />
+    <Content Include="Assets\Badge.scale-100.png" />
+    <Content Include="Assets\Badge.scale-140.png" />
+    <Content Include="Assets\Badge.scale-180.png" />
     <Content Include="Assets\boards\3.png" />
     <Content Include="Assets\boards\a.png" />
     <Content Include="Assets\boards\adv.png" />
@@ -197,6 +200,9 @@
     <Content Include="Assets\boards\wsg.png" />
     <Content Include="Assets\boards\x.png" />
     <Content Include="Assets\boards\y.png" />
+    <Content Include="Assets\Logo.scale-140.png" />
+    <Content Include="Assets\Logo.scale-180.png" />
+    <Content Include="Assets\Logo.scale-80.png" />
     <Content Include="DataModel\SampleData.json" />
     <None Include="DataModel\boards.json" />
   </ItemGroup>
@@ -205,9 +211,6 @@
     <Content Include="Assets\SmallLogo.scale-100.png" />
     <Content Include="Assets\SplashScreen.scale-100.png" />
     <Content Include="Assets\StoreLogo.scale-100.png" />
-    <Content Include="Assets\LightGray.png" />
-    <Content Include="Assets\MediumGray.png" />
-    <Content Include="Assets\DarkGray.png" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
