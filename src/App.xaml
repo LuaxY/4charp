@@ -11,5 +11,10 @@
 
         <x:String x:Key="AppName">4charp</x:String>
 
+        <SolidColorBrush x:Key="ProgressBarBackgroundThemeBrush" Color="#59FFFFFF" />
+        <SolidColorBrush x:Key="ProgressBarBorderThemeBrush" Color="Transparent" />
+        <SolidColorBrush x:Key="ProgressBarForegroundThemeBrush" Color="#FFFFFF" />
+        <SolidColorBrush x:Key="ProgressBarIndeterminateForegroundThemeBrush" Color="#FFFFFF" />
+
     </Application.Resources>
 </Application>

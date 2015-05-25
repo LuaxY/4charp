@@ -41,14 +41,20 @@ namespace _4charp
 
         private async void navigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
-            Random rand = new Random();
+            /*Random rand = new Random();
             Color backColor = Color.FromArgb(255, (byte)rand.Next(255), (byte)rand.Next(255), (byte)rand.Next(255));
             Brush brush = new SolidColorBrush(backColor);
-            this.back.Background = brush;
+            this.back.Background = brush;*/
 
+            LoadingBar.IsEnabled = true;
+            LoadingBar.Visibility = Visibility.Visible;
+
+            this.DefaultViewModel["Board"] = (_4chanDataBoard)e.NavigationParameter;
             var _4chanDataCatalog = await _4chanDataSource.GetCatalogdAsync((_4chanDataBoard)e.NavigationParameter);
             this.DefaultViewModel["Catalog"] = _4chanDataCatalog;
-            this.DefaultViewModel["Board"] = (_4chanDataBoard)e.NavigationParameter;
+
+            LoadingBar.IsEnabled = false;
+            LoadingBar.Visibility = Visibility.Collapsed;
         }
 
         void ItemView_ItemClick(object sender, ItemClickEventArgs e)
