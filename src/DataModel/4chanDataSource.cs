@@ -8,30 +8,64 @@ using Windows.Storage;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using System.Net.Http;
+using Windows.Data.Html;
 
 namespace _4charp.Data
 {
+    public class _4chanDataThread
+    {
+        public _4chanDataThread(string board, string date, string name, string com, bool hasimage, string ext = "", double time = 0)
+        {
+            this.Date = date;
+            this.Name = name;
+            this.Desc = HtmlUtilities.ConvertToText(com);
+            this.hasImage = hasimage;
+            this.Ext = ext;
+            this.Time = time;
+            this.Board = board;
+
+            if (this.hasImage)
+            {
+                string url = "http://i.4cdn.org/" + this.Board + "/" + this.Time.ToString() + this.Ext;
+                this.ImagePath = new BitmapImage(new Uri(url));
+            }
+        }
+
+        public string Date { get; private set; }
+        public string Name { get; private set; }
+        public string Desc { get; private set; }
+        public bool hasImage { get; private set; }
+        public string Ext { get; private set; }
+        public double Time { get; private set; }
+        public string Board { get; private set; }
+        public BitmapImage ImagePath { get; private set; }
+    }
+
     public class _4chanDataCatalog
     {
-        public _4chanDataCatalog(double id, string date, string author, string desc, string ext, string board)
+        public _4chanDataCatalog(double id, double time, string date, string author, string desc, string ext, string board)
         {
             this.Id = id;
+            this.Time = time;
             this.Date = date;
             this.Author = author;
-            this.Desc = desc.Replace("&#039;", "'");
+            this.Desc = HtmlUtilities.ConvertToText(desc);
             this.Ext = ext;
             this.Board = board;
-            string url = "http://i.4cdn.org/" + this.Board + "/" + this.Id.ToString() + this.Ext;
+            string url = "http://i.4cdn.org/" + this.Board + "/" + this.Time.ToString() + this.Ext;
             this.ImagePath = new BitmapImage(new Uri(url));
+            this.Items = new ObservableCollection<_4chanDataThread>();
         }
 
         public double Id { get; private set; }
+        public double Time { get; private set; }
         public string Date { get; private set; }
         public string Author { get; private set; }
         public string Desc { get; private set; }
         public string Ext { get; private set; }
         public string Board { get; private set; }
         public BitmapImage ImagePath { get; private set; }
+        public ObservableCollection<_4chanDataThread> Items { get; private set; }
 
         public override string ToString()
         {
@@ -58,7 +92,6 @@ namespace _4charp.Data
         {
             return this.Title;
         }
-            //return 
     }
 
     public class BoardsGroup
@@ -88,6 +121,23 @@ namespace _4charp.Data
 
         public string Title { get; private set; }
         public ObservableCollection<_4chanDataCatalog> Items { get; private set; }
+
+        public override string ToString()
+        {
+            return this.Title;
+        }
+    }
+
+    public class ThreadGroup
+    {
+        public ThreadGroup()
+        {
+            this.Title = "Catégories";
+            this.Items = new ObservableCollection<_4chanDataThread>();
+        }
+
+        public string Title { get; private set; }
+        public ObservableCollection<_4chanDataThread> Items { get; private set; }
 
         public override string ToString()
         {
@@ -186,12 +236,14 @@ namespace _4charp.Data
                     JsonObject threadObject = threadValue.GetObject();
 
                     if (threadObject.ContainsKey("tim") &&
+                        threadObject.ContainsKey("no") &&
                         threadObject.ContainsKey("now") &&
                         threadObject.ContainsKey("name") &&
                         threadObject.ContainsKey("com") &&
                         threadObject.ContainsKey("ext"))
                     {
-                        _4chanDataCatalog catalog = new _4chanDataCatalog(threadObject["tim"].GetNumber(),
+                        _4chanDataCatalog catalog = new _4chanDataCatalog(threadObject["no"].GetNumber(),
+                                                                          threadObject["tim"].GetNumber(),
                                                                           threadObject["now"].GetString(),
                                                                           threadObject["name"].GetString(),
                                                                           threadObject["com"].GetString(),
@@ -206,6 +258,61 @@ namespace _4charp.Data
             }
 
             board.Items.Add(group);
+        }
+
+
+        /*******************************************************************************************************/
+
+        public static async Task<IEnumerable<_4chanDataThread>> GetThreadAsync(_4chanDataCatalog catalog)
+        {
+            await _4chanDataSrc.Get4chanThreadAsync(catalog);
+            return catalog.Items;
+        }
+
+        private async Task Get4chanThreadAsync(_4chanDataCatalog catalog)
+        {
+            if (catalog.Items.Count != 0)
+                return;
+
+            Uri dataUri = new Uri("http://a.4cdn.org/" + catalog.Board + "/thread/" + catalog.Id.ToString() + ".json");
+            HttpClient _client = new HttpClient();
+            var result = await _client.GetStringAsync(dataUri);
+            JsonObject jsonObject = JsonObject.Parse(result);
+
+            JsonArray threads = jsonObject["posts"].GetArray();
+
+            foreach (JsonValue threadValue in threads)
+            {
+                JsonObject threadObject = threadValue.GetObject();
+
+                if (threadObject.ContainsKey("now") &&
+                    threadObject.ContainsKey("name") &&
+                    threadObject.ContainsKey("com"))
+                {
+                    _4chanDataThread thread;
+
+                    if (threadObject.ContainsKey("filename"))
+                    {
+                        thread = new _4chanDataThread(catalog.Board,
+                                                        threadObject["now"].GetString(),
+                                                        threadObject["name"].GetString(),
+                                                        threadObject["com"].GetString(),
+                                                        true,
+                                                        threadObject["ext"].GetString(),
+                                                        threadObject["tim"].GetNumber());
+                    }
+                    else
+                    {
+                        thread = new _4chanDataThread(catalog.Board,
+                                                        threadObject["now"].GetString(),
+                                                        threadObject["name"].GetString(),
+                                                        threadObject["com"].GetString(),
+                                                        false);
+                    }
+
+                    catalog.Items.Add(thread);
+                }
+            }
         }
     }
 }

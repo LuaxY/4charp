@@ -18,12 +18,11 @@
             x:Name="CatalogsSource"
             Source="{Binding Catalog}"
             IsSourceGrouped="true"
-            ItemsPath="Items"
-            d:Source="{Binding [0].threads[0], Source={d:DesignData Source=/DataModel/a_catalog.json, Type=data:_4chanDataSource}}"/>
+            ItemsPath="Items"/>
     </Page.Resources>
 
     <Grid x:Name="back"
-          Background="#ffd6ae">
+          Background="#d1d5ee">
         <Grid.ChildrenTransitions>
             <TransitionCollection>
                 <EntranceThemeTransition/>
@@ -48,7 +47,7 @@
             ItemClick="ItemView_ItemClick">
             <GridView.ItemTemplate>
                 <DataTemplate>
-                    <Grid HorizontalAlignment="Left" Width="200" Height="250">
+                    <Grid HorizontalAlignment="Left" Width="200" Height="200">
                         <Border Background="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}">
                             <Image Source="{Binding ImagePath}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Desc}"/>
                         </Border>
